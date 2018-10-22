@@ -24,7 +24,7 @@ class Board(object):
         end_x = min(x + 5, self.size - 1)
         return self.check_line(start_x, y, end_x, y, x, y)
 
-    def check_verticaly(self, x, y):
+    def check_vertically(self, x, y):
         start_y = max(y - 5, 0)
         end_y = min(y + 5, self.size - 1)
         return self.check_line(x, start_y, x, end_y, x, y)
@@ -61,7 +61,7 @@ class Board(object):
     def check_win(self, x, y, player_id):
         self.current_id = player_id
         if self.check_horizontal(x, y) or \
-                self.check_verticaly(x, y) or \
+                self.check_vertically(x, y) or \
                 self.check_slash(x, y) or \
                 self.check_antislash(x, y):
             return True
