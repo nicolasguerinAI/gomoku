@@ -22,33 +22,33 @@ class Board(object):
     def check_horizontal(self, x, y):
         start_x = max(x - 5, 0)
         end_x = min(x + 5, self.size - 1)
-        return self.check_line(start_x, y, end_x, y)
+        return self.check_line(start_x, y, end_x, y, x, y)
 
     def check_verticaly(self, x, y):
         start_y = max(y - 5, 0)
         end_y = min(y + 5, self.size - 1)
-        return self.check_line(x, start_y, x, end_y)
+        return self.check_line(x, start_y, x, end_y, x, y)
 
     def check_slash(self, x, y):
         start_x = max(x - 5, 0)
         start_y = max(y - 5, 0)
         end_x = min(x + 5, self.size - 1)
         end_y = min(y + 5, self.size - 1)
-        return self.check_line(start_x, start_y, end_x, end_y)
+        return self.check_line(start_x, start_y, end_x, end_y, x, y)
 
     def check_antislash(self, x, y):
         start_x = max(x - 5, 0)
         start_y = min(y + 5, self.size - 1)
         end_x = min(x + 5, self.size - 1)
         end_y = max(y - 5, 0)
-        return self.check_line(start_x, start_y, end_x, end_y)
+        return self.check_line(start_x, start_y, end_x, end_y, x, y)
 
-    def check_line(self, start_x, start_y, end_x, end_y):
+    def check_line(self, start_x, start_y, end_x, end_y, x, y):
         cur_length = 0
 
         for curX in range(start_x, end_x):
             for curY in range(start_y, end_y):
-                if self.board[curY][curX] == self.current_id and cur_id != 0:
+                if self.board[curY][curX] == self.current_id or (curX == x and curY == y):
                     cur_length = cur_length + 1
                 else:
                     cur_length = 0
