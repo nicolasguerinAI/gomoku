@@ -46,8 +46,8 @@ class Board(object):
     def check_line(self, start_x, start_y, end_x, end_y, x, y):
         cur_length = 0
 
-        for curX in range(start_x, end_x):
-            for curY in range(start_y, end_y):
+        for curX in range(start_x, end_x + 1):
+            for curY in range(start_y, end_y + 1):
                 if self.board[curY][curX] == self.current_id or (curX == x and curY == y):
                     cur_length = cur_length + 1
                 else:
