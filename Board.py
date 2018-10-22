@@ -1,9 +1,11 @@
+import math
 import sys
 
 
 class Board(object):
     def __init__(self):
         self.size = 19
+        self.current_id = 0
         self.board = self.__create_board()
 
     # private
@@ -16,6 +18,54 @@ class Board(object):
             self.board[pos_y][pos_x] = id
         else:
             return 84
+
+    def check_horizontal(self, x, y):
+        start_x = max(x - 5, 0)
+        end_x = min(x + 5, self.size - 1)
+        return self.check_line(start_x, y, end_x, y)
+
+    def check_verticaly(self, x, y):
+        start_y = max(y - 5, 0)
+        end_y = min(y + 5, self.size - 1)
+        return self.check_line(x, start_y, x, end_y)
+
+    def check_slash(self, x, y):
+        start_x = max(x - 5, 0)
+        start_y = max(y - 5, 0)
+        end_x = min(x + 5, self.size - 1)
+        end_y = min(y + 5, self.size - 1)
+        return self.check_line(start_x, start_y, end_x, end_y)
+
+    def check_antislash(self, x, y):
+        start_x = max(x - 5, 0)
+        start_y = min(y + 5, self.size - 1)
+        end_x = min(x + 5, self.size - 1)
+        end_y = max(y - 5, 0)
+        return self.check_line(start_x, start_y, end_x, end_y)
+
+    def check_line(self, start_x, start_y, end_x, end_y):
+        cur_length = 0
+
+        for curX in range(start_x, end_x):
+            for curY in range(start_y, end_y):
+                if self.board[curY][curX] == self.current_id and cur_id != 0:
+                    cur_length = cur_length + 1
+                else:
+                    cur_length = 0
+                if cur_length == 5:
+                    return True
+
+        return False
+
+    # public
+    def check_win(self, x, y, player_id):
+        self.current_id = player_id
+        if self.check_horizontal(x, y) or \
+                self.check_verticaly(x, y) or \
+                self.check_slash(x, y) or \
+                self.check_antislash(x, y):
+            return True
+        return False
 
     if __debug__:
         def print_board(self):
