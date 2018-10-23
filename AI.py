@@ -4,3 +4,6 @@ class AI:
         self.id = id
         self.board = board
 
+    def do_command(self, command, parameters):
+        pass
+

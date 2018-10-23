@@ -46,7 +46,7 @@ class Communication(ABC):
                     x = 1
                     continue
                 msgs.append(word)
-        else:
+        elif len(words) > 1:
             msgs.append(words[1])
 
         token = ProtocolCommand.get_token(words[0])
