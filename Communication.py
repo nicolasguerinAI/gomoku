@@ -9,7 +9,7 @@ class ProtocolCommand(Enum):
     BOARD = 'BOARD'
     DEBUG = 'DEBUG'
     END = 'END'
-    ERROR = 'ERROR message'
+    ERROR = 'ERROR'
     INFO = 'INFO'
     MESSAGE = 'MESSAGE'
     OK = 'OK'
@@ -22,6 +22,11 @@ class ProtocolCommand(Enum):
     TURN = 'TURN'
     UNKNOWN = 'UNKNOWN'
 
+    def get_token(token):
+        for pc in ProtocolCommand:
+            if pc.value == token:
+                return pc
+        return ProtocolCommand.UNKNOWN
 
 
 class Communication(ABC):
@@ -30,9 +35,24 @@ class Communication(ABC):
 
     @staticmethod
     def read_command():
+        x = 0
         line = sys.stdin.readline()
         words = line.split()
+        msgs = []
 
+        if len(words) > 2:
+            for word in words:
+                if x == 0:
+                    x = 1
+                    continue
+                msgs.append(word)
+        else:
+            msgs.append(words[1])
+
+        token = ProtocolCommand.get_token(words[0])
+        if token == ProtocolCommand.UNKNOWN:
+            msgs = words[0]
+        return token, msgs
 
     @staticmethod
     def send_command(command, msg):
