@@ -13,37 +13,31 @@ class Board(object):
         board = [[0] * self.size for i in range(0, self.size)]
         return board
 
-    def add_token(self, id, pos_x, pos_y):
-        if self.board[pos_y][pos_x] == 0:
-            self.board[pos_y][pos_x] = id
-        else:
-            return 84
-
-    def check_horizontal(self, x, y):
+    def __check_horizontal(self, x, y):
         start_x = max(x - 5, 0)
         end_x = min(x + 5, self.size - 1)
         return self.check_line(start_x, y, end_x, y, x, y)
 
-    def check_vertically(self, x, y):
+    def __check_vertically(self, x, y):
         start_y = max(y - 5, 0)
         end_y = min(y + 5, self.size - 1)
         return self.check_line(x, start_y, x, end_y, x, y)
 
-    def check_slash(self, x, y):
+    def __check_slash(self, x, y):
         start_x = max(x - 5, 0)
         start_y = max(y - 5, 0)
         end_x = min(x + 5, self.size - 1)
         end_y = min(y + 5, self.size - 1)
         return self.check_line(start_x, start_y, end_x, end_y, x, y)
 
-    def check_antislash(self, x, y):
+    def __check_antislash(self, x, y):
         start_x = max(x - 5, 0)
         start_y = min(y + 5, self.size - 1)
         end_x = min(x + 5, self.size - 1)
         end_y = max(y - 5, 0)
         return self.check_line(start_x, start_y, end_x, end_y, x, y)
 
-    def check_line(self, start_x, start_y, end_x, end_y, x, y):
+    def __check_line(self, start_x, start_y, end_x, end_y, x, y):
         cur_length = 0
 
         for curX in range(start_x, end_x + 1):
@@ -58,12 +52,18 @@ class Board(object):
         return False
 
     # public
+    def add_token(self, id, pos_x, pos_y):
+        if self.board[pos_y][pos_x] == 0:
+            self.board[pos_y][pos_x] = id
+        else:
+            return 84
+
     def check_win(self, x, y, player_id):
         self.current_id = player_id
-        if self.check_horizontal(x, y) or \
-                self.check_vertically(x, y) or \
-                self.check_slash(x, y) or \
-                self.check_antislash(x, y):
+        if self.__check_horizontal(x, y) or \
+                self.__check_vertically(x, y) or \
+                self.__check_slash(x, y) or \
+                self.__check_antislash(x, y):
             return True
         return False
 
