@@ -16,26 +16,26 @@ class Board(object):
     def __check_horizontal(self, x, y):
         start_x = max(x - 5, 0)
         end_x = min(x + 5, self.size - 1)
-        return self.check_line(start_x, y, end_x, y, x, y)
+        return self.__check_line(start_x, y, end_x, y, x, y)
 
     def __check_vertically(self, x, y):
         start_y = max(y - 5, 0)
         end_y = min(y + 5, self.size - 1)
-        return self.check_line(x, start_y, x, end_y, x, y)
+        return self.__check_line(x, start_y, x, end_y, x, y)
 
     def __check_slash(self, x, y):
         start_x = max(x - 5, 0)
         start_y = max(y - 5, 0)
         end_x = min(x + 5, self.size - 1)
         end_y = min(y + 5, self.size - 1)
-        return self.check_line(start_x, start_y, end_x, end_y, x, y)
+        return self.__check_line(start_x, start_y, end_x, end_y, x, y)
 
     def __check_antislash(self, x, y):
         start_x = max(x - 5, 0)
         start_y = min(y + 5, self.size - 1)
         end_x = min(x + 5, self.size - 1)
         end_y = max(y - 5, 0)
-        return self.check_line(start_x, start_y, end_x, end_y, x, y)
+        return self.__check_line(start_x, start_y, end_x, end_y, x, y)
 
     def __check_line(self, start_x, start_y, end_x, end_y, x, y):
         cur_length = 0
