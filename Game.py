@@ -33,7 +33,7 @@ class Game:
         sys.exit(0)
 
     # Game Command Switcher
-    def __go_game_command(self, command, parameters):
+    def __do_game_command(self, command, parameters):
         attr_name = "cmd_" + command.value
         try:
             self.__getattribute__(attr_name)(parameters)
@@ -45,5 +45,5 @@ class Game:
     def loop(self):
         while 1:
             command, parameters = Communication.read_command()
-            if not self.__go_game_command(command, parameters):
+            if not self.__do_game_command(command, parameters):
                 self.ai.do_command(command, parameters)

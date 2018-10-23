@@ -5,5 +5,9 @@ class AI:
         self.board = board
 
     def do_command(self, command, parameters):
-        pass
+        attr_name = "cmd_" + command.value
+        try:
+            self.__getattribute__(attr_name)(parameters)
+        except Exception:
+             print(f'Command \"{command.value}\" not yet implemented.')
 
