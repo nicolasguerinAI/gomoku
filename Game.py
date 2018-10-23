@@ -1,5 +1,7 @@
 import AI
 import Board
+from Board import Board
+from AI import AI
 
 name = "pbrain"
 version = "1.0"
@@ -8,8 +10,8 @@ country = "France"
 
 class Game:
     def __init__(self):
-        self.board = self.board.Board()
-        self.ai = self.ai.AI()
+        self.board = Board()
+        self.ai = AI(1, self.board)
 
     def about(self):
         print(f'name=\"{name}\", version=\"{version}\", author=\"{author}\", country=\"{country}\"')
