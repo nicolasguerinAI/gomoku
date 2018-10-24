@@ -1,7 +1,5 @@
 import sys
 
-import AI
-import Board
 from Communication import Communication
 from Board import Board
 from AI import AI
@@ -42,7 +40,7 @@ class Game:
             return False
 
     # Main Loop
-    def loop(self):
+    def run(self):
         while 1:
             command, parameters = Communication.read_command()
             if not self.__do_game_command(command, parameters):
