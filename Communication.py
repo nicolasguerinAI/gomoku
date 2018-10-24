@@ -38,13 +38,19 @@ class Communication(ABC):
     def read_command():
         x = 0
         lines = []
-        while True:
-            line = input()
-            if line:
-                lines.append(line)
-            else:
-                break
-        text = '\n'.join(lines)
+        text = sys.stdin.readline()
+        text = text.rstrip()
+        if text == 'BOARD':
+            lines.append(text)
+            while True:
+                line = input()
+                if line:
+                    if line == 'DONE':
+                        break
+                    lines.append(line)
+                else:
+                    break
+            text = '\n'.join(lines)
 
         words = text.split()
         token = ProtocolCommand.UNKNOWN
@@ -69,3 +75,10 @@ class Communication(ABC):
     @staticmethod
     def send_command(token, msg):
         print(token.value + " " + msg)
+
+    if __debug__:
+        @staticmethod
+        def print_server_msg(token, msg):
+            print('cmd = ' + token.value)
+            print('msg = ' + str(msg))
+
