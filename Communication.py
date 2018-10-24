@@ -37,8 +37,17 @@ class Communication(ABC):
     @staticmethod
     def read_command():
         x = 0
-        line = sys.stdin.readline()
-        words = line.split()
+        lines = []
+        while True:
+            line = input()
+            if line:
+                lines.append(line)
+            else:
+                break
+        text = '\n'.join(lines)
+
+        words = text.split()
+        token = ProtocolCommand.UNKNOWN
         msgs = []
 
         if len(words) > 2:
@@ -50,9 +59,11 @@ class Communication(ABC):
         elif len(words) > 1:
             msgs.append(words[1])
 
-        token = ProtocolCommand.get_token(words[0])
-        if token == ProtocolCommand.UNKNOWN:
-            msgs = words[0]
+        if len(words) > 0:
+            token = ProtocolCommand.get_token(words[0])
+            if token == ProtocolCommand.UNKNOWN:
+                msgs = words[0]
+        sys.stdin.flush()
         return token, msgs
 
     @staticmethod
