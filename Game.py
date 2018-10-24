@@ -27,6 +27,7 @@ class Game:
         self.rule = 1
         self.evaluate = ""
         self.folder = ""
+        self.end = False
 
     # Game Command Executions
     def cmd_ABOUT(self, parameters):
@@ -36,10 +37,18 @@ class Game:
         print(f'UNKNOWN Unknown command : {parameters}')
 
     def cmd_END(self, parameters):
-        sys.exit(0)
+        self.end = True
 
     def cmd_START(self, parameters):
         print("OK")
+
+    def cmd_BOARD(self, parameters):
+        for parameter in parameters:
+            parameter_as_list = parameter.split(",")
+            if len(parameter_as_list) != 3:
+                print("ERROR")
+                return
+            self.board.add_token(int(parameter_as_list[2]), int(parameter_as_list[0]), int(parameter_as_list[1]))
 
     def cmd_INFO(self, parameters):
         if self.__dict__.__contains__(parameters[0]) and len(parameters) is 2:
@@ -58,7 +67,7 @@ class Game:
 
     # Main Loop
     def run(self):
-        while 1:
+        while not self.end:
             command, parameters = Communication.read_command()
             if not self.__do_game_command(command, parameters):
                 self.ai.do_command(command, parameters)
