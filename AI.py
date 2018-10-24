@@ -9,5 +9,5 @@ class AI:
         try:
             self.__getattribute__(attr_name)(parameters)
         except Exception:
-             print(f'Command \"{command.value}\" not yet implemented.')
+            print(f'Command \"{command.value}\" not yet implemented.')
 

@@ -22,6 +22,7 @@ class ProtocolCommand(Enum):
     TURN = 'TURN'
     UNKNOWN = 'UNKNOWN'
 
+    @staticmethod
     def get_token(token):
         for pc in ProtocolCommand:
             if pc.value == token:
@@ -55,5 +56,5 @@ class Communication(ABC):
         return token, msgs
 
     @staticmethod
-    def send_command(command, msg):
-        print(command.value + " " + msg)
+    def send_command(token, msg):
+        print(token.value + " " + msg)
