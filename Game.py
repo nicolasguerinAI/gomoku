@@ -14,11 +14,19 @@ COUNTRY = "Nouvelle-Calédonie"
 AI_ID = 1
 PLAYER_ID = 2
 
-
 class Game:
+
     def __init__(self):
         self.board = Board()
         self.ai = AI(AI_ID, self.board)
+        self.timeout_turn = 0
+        self.timeout_match = 0
+        self.max_memory = 0
+        self.time_left = 0
+        self.game_type = 0
+        self.rule = 1
+        self.evaluate = ""
+        self.folder = ""
 
     # Game Command Executions
     def cmd_ABOUT(self, parameters):
@@ -29,6 +37,15 @@ class Game:
 
     def cmd_END(self, parameters):
         sys.exit(0)
+
+    def cmd_START(self, parameters):
+        print("OK")
+
+    def cmd_INFO(self, parameters):
+        if self.__dict__.__contains__(parameters[0]) and len(parameters) is 2:
+            self.__dict__[parameters[0]] = parameters[1]
+        else:
+            print("ERROR")
 
     # Game Command Switcher
     def __do_game_command(self, command, parameters):
