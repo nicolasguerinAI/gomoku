@@ -71,3 +71,4 @@ class Game:
             command, parameters = Communication.read_command()
             if not self.__do_game_command(command, parameters):
                 self.ai.do_command(command, parameters)
+            sys.stdout.flush()

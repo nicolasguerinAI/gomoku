@@ -66,6 +66,12 @@ class Board(object):
             return True
         return False
 
+    def check_token(self, x, y):
+        if self.board[x][y] == 0:
+            return True
+        else:
+            return False
+
     if __debug__:
         def print_board(self):
             for lines in self.board:
