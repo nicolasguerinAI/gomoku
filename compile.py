@@ -13,4 +13,4 @@ if __name__ == "__main__":
     try:
         os.rename("./dist/main.exe", "./pbrain-curry.exe")
     except:
-        os.rename("./dist/main", "./pbrain-curry")
+        pass
