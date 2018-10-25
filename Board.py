@@ -67,7 +67,7 @@ class Board(object):
         return False
 
     def check_token(self, x, y):
-        if self.board[x][y] == 0:
+        if self.board[y][x] == 0:
             return True
         else:
             return False
