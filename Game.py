@@ -27,7 +27,7 @@ class Game:
         self.rule = 1
         self.evaluate = ""
         self.folder = ""
-        self.end = False
+        self.__end = False
 
     # Game Command Executions
     def cmd_ABOUT(self, parameters):
@@ -35,9 +35,10 @@ class Game:
 
     def cmd_UNKNOWN(self, parameters):
         print(f'UNKNOWN Unknown command : {parameters}')
+        self.board.print_board()
 
     def cmd_END(self, parameters):
-        self.end = True
+        self.__end = True
 
     def cmd_START(self, parameters):
         print("OK")
@@ -67,7 +68,7 @@ class Game:
 
     # Main Loop
     def run(self):
-        while not self.end:
+        while not self.__end:
             command, parameters = Communication.read_command()
             if not self.__do_game_command(command, parameters):
                 self.ai.do_command(command, parameters)
